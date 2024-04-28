@@ -1,7 +1,7 @@
 from torch.utils import data as data
 from torchvision.transforms.functional import normalize
 
-from transforms import augment, paired_random_crop
+from .transforms import augment, paired_random_crop
 from .file_client import FileClient
 import os.path as osp
 import os
@@ -117,16 +117,17 @@ class CustomDataset(data.Dataset):
     """
 
     def __init__(self, opt, train=True):
-        super(PairedImageDataset, self).__init__()
+        super(CustomDataset, self).__init__()
         self.opt = {'gt_size': 128, 'phase': 'train' if train else 'val', 'use_flip': True, 'use_rot': True}
         # file client (io backend)
         self.file_client = None
         self.io_backend_opt = {'type': 'disk'}
         self.mean = None
         self.std = None
-
-        self.gt_folder, self.lq_folder = '/content/train128', '/content/train64'#opt['dataroot_gt'], opt['dataroot_lq']
-        
+        if train:
+          self.gt_folder, self.lq_folder = '/content/train128', '/content/train64' #opt['dataroot_gt'], opt['dataroot_lq']
+        else:
+          self.gt_folder, self.lq_folder = '/content/test128', '/content/test64'
         self.filename_tmpl = '{}'
 
         self.paths = paired_paths_from_folder([self.lq_folder, self.gt_folder], ['lq', 'gt'], self.filename_tmpl)

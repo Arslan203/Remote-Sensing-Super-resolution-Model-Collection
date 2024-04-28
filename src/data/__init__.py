@@ -28,6 +28,8 @@ class Data:
                 from .alsat import ALSAT as D
             if module_name == 'Potsdam':
                 from .potsdam import Potsdam as D
+            if module_name == 'Custom':
+                from .custom_data import CustomDataset as D
             dataset=D(args)
             testset=D(args,train=False)
             self.loader_train = dataloader.DataLoader(

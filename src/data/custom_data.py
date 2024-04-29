@@ -163,7 +163,7 @@ class CustomDataset(data.Dataset):
             normalize(img_lq, self.mean, self.std, inplace=True)
             normalize(img_gt, self.mean, self.std, inplace=True)
 
-        return {'lq': img_lq, 'gt': img_gt, 'lq_path': lq_path, 'gt_path': gt_path}
+        return img_lq, img_gt, lq_path, gt_path
 
     def __len__(self):
         return len(self.paths)

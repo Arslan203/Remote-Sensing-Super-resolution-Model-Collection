@@ -77,7 +77,7 @@ class Trainer():
 
         timer_data, timer_model = utility.timer(), utility.timer()
         # TEMP
-        for batch, (lr, hr, _,) in enumerate(self.loader_train):
+        for batch, (lr, hr, _, _) in enumerate(self.loader_train):
             psnr = 0
             lr, hr = self.prepare(lr, hr)
             timer_data.hold()
